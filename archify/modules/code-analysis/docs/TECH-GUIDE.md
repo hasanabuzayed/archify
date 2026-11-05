@@ -264,10 +264,11 @@ TypeScript marks explicit type-only edges, deferred import()/require() calls
 and guarded CommonJS loads. For example, `if (require("./a")) require("./b")`
 evaluates the first load before deciding whether to run the second.
 The adapter uses tsconfig options when resolving aliases and inline type specifiers.
-If TypeScript resolves a relative CommonJS directory load to a declaration,
-the adapter checks the captured package for an explicit JavaScript main or the default
-`index.js`. A confirmed runtime file takes precedence for the require, while a
-type-only import keeps its declaration target.
+If TypeScript resolves a relative CommonJS require to a declaration, the adapter
+checks the captured inventory for the requested file, including Node's implicit
+`.js` extension. For a directory it checks an explicit JavaScript main or the
+default `index.js`. A confirmed runtime file takes precedence for the require,
+while a type-only import keeps its declaration target.
 Source text, in-root JSON configuration/package metadata, and the resolution file
 inventory are captured before compiler setup. Configuration parsing and module
 resolution use that inventory, including negative lookups, rather than rereading
